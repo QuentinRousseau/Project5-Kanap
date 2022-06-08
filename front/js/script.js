@@ -28,7 +28,6 @@ function createCanape(canape) {
   const canapeName = document.createElement("h3"); // création du titre h3
   canapeName.setAttribute("class", "productName"); // on attribue au titre la class productName
   canapeName.textContent = canape.name; // on recupere et assigne le nom du canape
-  console.log("canapeName");
   const canapeDescription = document.createElement("p"); // on créé le paragraphe
   canapeDescription.setAttribute("class", "productDescription"); // on attribue a la description la class productDescription
   canapeDescription.textContent = canape.description; // on recupere et assigne la description du canape
