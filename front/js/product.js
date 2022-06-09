@@ -1,4 +1,6 @@
-const productUrl = window.location.search.split("?id=").join("");
+import { getCart, setCart } from "./cartManager.js";
+
+const productUrl = new URL(window.location.href).searchParams.get("id");
 console.log(productUrl);
 //  Data recovery of API
 
@@ -35,23 +37,18 @@ function createProduct(product) {
   const price = document.getElementById("price");
   price.textContent = product.price + " ";
   // description
-  const description = document.getElementById("description");
-  description.textContent = product.description;
+  document.getElementById("description").textContent = product.description;
   // color option
-  const colorSelect = document.getElementById("colors");
-  const colorList = product.colors;
-  createColor(colorList);
+  createColor(product.colors);
 }
 
-const createColor = async () => {
-  const product = await fetchProduct();
+const createColor = async (colorList) => {
   const colorSelects = document.getElementById("colors");
-  const colorLists = product.colors;
-  console.log(colorLists);
-  for (let i = 0; i < colorLists.length; i++) {
+  console.log(colorList);
+  for (const name of colorList) {
     const color = document.createElement("option");
-    color.setAttribute("value", product.colors[i]);
-    color.textContent = color.value;
+    color.setAttribute("value", name);
+    color.textContent = name;
     colorSelects.appendChild(color);
   }
 };
