@@ -42,12 +42,10 @@ function createCanape(canape) {
 const canapeDisplay = async () => {
   const canapes = await fetchCanape();
   // Creating a sofa object for each array element
-  for (let i = 0; i < canapes.length; i++) {
-    // pour tout élément de la liste 'data'
-    let canape = canapes[i]; // créer variable 'canape'
+  for (let canape of canapes) {
     console.log(canape);
     createCanape(canape);
   }
 };
 
-(async () => await canapeDisplay())(); //
+(async () => await canapeDisplay())();
