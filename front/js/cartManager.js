@@ -1,32 +1,27 @@
 export function addProduct(product) {
-  getCart(); // récupere ou creer le tableau
-
-  const color = document.getElementById("colors");
-  let colorSelect = color.selectedIndex.value;
-  console.log(colorSelect);
-  product.color = colorSelect;
-
-  const quantity = console.log(quantity);
-  product.quantity = quantity;
-
-  setCart(product); //sauvegarde le produit au panier
-
-  document.location.reload(); //recharge la page automatiquement pour mettre a jour
-  //setCart(product);
-  //ajoute un canape
+  const canapeList = getCart();
+  if (product.quantity == 0) return;
+  console.log(canapeList);
+  let item = canapeList.find(
+    (item) => item.id === product.id && item.color === product.color
+  );
+  if (!item) {
+    item = product;
+    canapeList.push(item);
+  } else item.quantity += canapeList.quantity;
+  setCart(canapeList);
 }
 
-export function setCart() {
-  localStorage.setItem("Canape", JSON.stringify(product));
+export function setCart(json) {
+  localStorage.setItem("Canape", JSON.stringify(json));
 
   //sauvegarder le panier
 }
 
 export function getCart() {
-  if (localStorage.getItem("Canape") != null) {
-    localStorage.getItem(item);
-  } else {
-    localStorage = [];
+  let canapeList = JSON.parse(localStorage.getItem("Canape"));
+  if (canapeList === null) {
+    canapeList = [];
   }
-  //obtien le panier
+  return canapeList;
 }
