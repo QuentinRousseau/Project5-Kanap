@@ -62,7 +62,7 @@ const product = await fetchProduct();
 
 function recoverData() {
   const color = document.getElementById("colors").value;
-  const quantity = document.getElementById("quantity").value;
+  const quantity = parseInt(document.getElementById("quantity").value);
   return { ...product, id, color, quantity };
 }
 

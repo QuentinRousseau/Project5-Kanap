@@ -8,7 +8,7 @@ export function addProduct(product) {
   if (!item) {
     item = product;
     canapeList.push(item);
-  } else item.quantity += canapeList.quantity;
+  } else item.quantity += product.quantity;
   setCart(canapeList);
 }
 
@@ -24,4 +24,9 @@ export function getCart() {
     canapeList = [];
   }
   return canapeList;
+}
+
+export function getItem(item) {
+  const canapeList = getCart();
+  item = canapeList.find(item);
 }

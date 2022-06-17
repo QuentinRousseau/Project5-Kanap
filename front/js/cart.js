@@ -87,7 +87,7 @@ function createProduct(product) {
 const localDisplay = async () => {
   for (let i in getLocal) {
     createProduct(i);
-    console.log(i);
+    console.log(getLocal[i]);
   }
 };
 (async () => await localDisplay())();
@@ -95,13 +95,15 @@ const qtyPriceTotal = () => {
   let totPrice = 0;
   let totQty = 0;
   let addPrice = 0;
-  for (let i of getLocal) {
-    addPrice = i.price * i.quantity;
+  for (let i in getLocal) {
+    addPrice = getLocal[i].price * getLocal[i].quantity;
     totPrice += addPrice;
-    totQty += parseInt(i.quantity);
+    totQty += getLocal[i].quantity;
   }
+
   let totQtyDisplay = document.getElementById("totalQuantity");
   totQtyDisplay.textContent = totQty;
+
   let totPriceDisplay = document.getElementById("totalPrice");
   totPriceDisplay.textContent = totPrice;
 };
@@ -122,10 +124,11 @@ inputList.forEach((input) => {
     console.log(input.value);
 
     for (let i of getLocal) {
+      console.log(getLocal);
       if (canapId == i.id && canapeColor == i.color) {
         console.log("on est rentré");
-        i.quantity = input.value;
-        setCart(i);
+        i.quantity = parseInt(input.value);
+        setCart(getLocal);
         qtyPriceTotal();
       }
     }
