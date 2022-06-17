@@ -11,16 +11,16 @@ function createProduct(product) {
   // article creation
   const productArticle = document.createElement("article");
   productArticle.setAttribute("class", "cart__item");
-  productArticle.setAttribute("data-id", product.id);
-  productArticle.setAttribute("data-color", product.color);
+  productArticle.setAttribute("data-id", getLocal[product].id);
+  productArticle.setAttribute("data-color", getLocal[product].color);
   items.appendChild(productArticle);
 
   // div image creation
   const productDivImg = document.createElement("div");
   productDivImg.setAttribute("class", "cart__item__img");
   const productImg = document.createElement("img");
-  productImg.src = product.imageUrl;
-  productImg.alt = product.altTxt;
+  productImg.src = getLocal[product].imageUrl;
+  productImg.alt = getLocal[product].altTxt;
   productArticle.appendChild(productDivImg);
   productDivImg.appendChild(productImg);
 
@@ -37,11 +37,11 @@ function createProduct(product) {
   );
   productDivContent.appendChild(productContentDescription);
   const descriptionTitle = document.createElement("h2");
-  descriptionTitle.textContent = product.name;
+  descriptionTitle.textContent = getLocal[product].name;
   const descriptionColor = document.createElement("p");
-  descriptionColor.textContent = product.color;
+  descriptionColor.textContent = getLocal[product].color;
   const descriptionPrice = document.createElement("p");
-  descriptionPrice.textContent = product.price + " €";
+  descriptionPrice.textContent = getLocal[product].price + " €";
   productContentDescription.appendChild(descriptionColor);
   productContentDescription.appendChild(descriptionPrice);
   productContentDescription.appendChild(descriptionTitle);
@@ -65,7 +65,7 @@ function createProduct(product) {
   qtyInput.setAttribute("name", "itemQuantity");
   qtyInput.setAttribute("min", "1");
   qtyInput.setAttribute("max", "100");
-  qtyInput.setAttribute("value", product.quantity);
+  qtyInput.setAttribute("value", getLocal[product].quantity);
   contentSettingsQuantity.appendChild(qtyInput, qtyTitle);
 
   // div delete creation
@@ -95,7 +95,7 @@ const qtyPriceTotal = () => {
   let totPrice = 0;
   let totQty = 0;
   let addPrice = 0;
-  for (let i in getLocal) {
+  for (let i of getLocal) {
     addPrice = i.price * i.quantity;
     totPrice += addPrice;
     totQty += parseInt(i.quantity);
