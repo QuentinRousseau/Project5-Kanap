@@ -65,7 +65,7 @@ const product = await fetchProduct();
 function recoverData() {
   const color = document.getElementById("colors").value;
 
-  const quantity = parseInt(document.getElementById("quantity").value);
+  const quantity = parseInt(document.getElementById("quantity").value, 10);
   // creer un boucle qui empeche l'ajout si l'input renvoie rien ou si il n'y a pas de couleur
   return { ...product, id, color, quantity };
 }
@@ -73,8 +73,20 @@ function recoverData() {
 // fonction d'ajout de canape au click du bouton
 
 const btn = document.getElementById("addToCart");
-btn.onclick = () => {
+btn.addEventListener("click", function () {
   const product = recoverData();
-  addProduct(product);
-  alert("Produit(s) ajouté(s)");
-};
+  console.log(product.color);
+  console.log(product.quantity);
+  console.log(typeof product.color);
+  console.log(typeof product.quantity);
+  if (
+    product.color == "" ||
+    product.quantity <= 0 ||
+    product.quantity == false
+  ) {
+    alert("Mettre une couleur et une quantité avant ajout au panier");
+  } else {
+    addProduct(product);
+    alert("Produit(s) ajouté(s)");
+  }
+});
