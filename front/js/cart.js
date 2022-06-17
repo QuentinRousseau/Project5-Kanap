@@ -134,3 +134,29 @@ inputList.forEach((input) => {
     }
   });
 });
+
+const deleteList = document.querySelectorAll(".deleteItem");
+console.log(deleteList);
+
+deleteList.forEach((deleteItem) => {
+  deleteItem.addEventListener("click", function () {
+    // recuperer le data id du canape
+    const canap = deleteItem.closest("article"); // recupere le parent le plus proche de l'input
+    const canapId = canap.getAttribute("data-id");
+    const canapeColor = canap.getAttribute("data-color");
+
+    console.log(canapId);
+    console.log(canapeColor);
+
+    for (let i in getLocal) {
+      if (canapId == getLocal[i].id && canapeColor == getLocal[i].color) {
+        console.log("on est rentré dans le delete");
+        getLocal.splice(i, 1);
+        console.log(getLocal);
+        setCart(getLocal);
+        qtyPriceTotal();
+        window.location.reload();
+      }
+    }
+  });
+});
