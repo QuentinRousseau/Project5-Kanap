@@ -121,7 +121,7 @@ inputList.forEach((input) => {
     console.log(canapeColor);
     console.log(input.value);
 
-    for (let i in getLocal) {
+    for (let i of getLocal) {
       if (canapId == i.id && canapeColor == i.color) {
         console.log("on est rentré");
         i.quantity = input.value;
