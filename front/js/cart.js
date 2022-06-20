@@ -1,4 +1,5 @@
 import { addProduct, getCart, setCart } from "./cartManager.js";
+import { validAdress, validEmail, validName } from "./formValidation.js";
 
 let getLocal = getCart();
 console.log(getLocal);
@@ -159,4 +160,17 @@ deleteList.forEach((deleteItem) => {
       }
     }
   });
+});
+
+document.forms[0].addEventListener("submit", function () {
+  let orderForm = document.querySelector(".cart__order__form");
+
+  console.log(orderForm);
+  console.log(orderForm.firstName.nextElementSibling);
+
+  validName(orderForm.firstName); // quentin
+  validName(orderForm.lastName); // rousseau
+  validAdress(orderForm.address); // mail
+  validName(orderForm.city);
+  validEmail(orderForm.email);
 });
