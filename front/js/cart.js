@@ -161,16 +161,42 @@ deleteList.forEach((deleteItem) => {
     }
   });
 });
+let orderForm = document.querySelector(".cart__order__form");
 
-document.forms[0].addEventListener("submit", function () {
-  let orderForm = document.querySelector(".cart__order__form");
+orderForm.firstName.addEventListener("change", function () {
+  validName(orderForm.firstName);
+});
+orderForm.lastName.addEventListener("change", function () {
+  validName(orderForm.lastName);
+});
 
-  console.log(orderForm);
-  console.log(orderForm.firstName.nextElementSibling);
-
-  validName(orderForm.firstName); // quentin
-  validName(orderForm.lastName); // rousseau
-  validAdress(orderForm.address); // mail
+orderForm.city.addEventListener("change", function () {
   validName(orderForm.city);
-  validEmail(orderForm.email);
+});
+orderForm.address.addEventListener("change", function () {
+  validName(orderForm.address);
+});
+orderForm.email.addEventListener("change", function () {
+  validName(orderForm.email);
+});
+
+orderForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  if (
+    validName(orderForm.firstName) &&
+    validName(orderForm.lastName) &&
+    validAdress(orderForm.address) &&
+    validName(orderForm.city) &&
+    validEmail(orderForm.email)
+  ) {
+    const checkOutForm = {
+      firstName: orderForm.firstName.value,
+      lastName: orderForm.lastName.value,
+      address: orderForm.address.value,
+      city: orderForm.city.value,
+      email: orderForm.email.value,
+    };
+    localStorage.setItem("Contact", JSON.stringify(checkOutForm));
+    console.log(localStorage);
+  }
 });
