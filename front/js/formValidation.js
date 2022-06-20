@@ -5,11 +5,12 @@ export function validEmail(inputEmail) {
   );
 
   let testEmail = regexEmail.test(inputEmail.value);
-  let emailErrorMsg = document.getElementById("cityErrorMsg");
+  let emailErrorMsg = document.getElementById("emailErrorMsg");
 
   if (testEmail == false) {
     emailErrorMsg.textContent = "Veuillez renseigner une adresse mail valide";
   } else {
+    emailErrorMsg.textContent = "";
     return true;
   }
 }
@@ -24,12 +25,14 @@ export function validName(inputName) {
   if (testName == false) {
     errorMsg.textContent = "Veuillez renseigner un champ valide";
   } else {
+    errorMsg.textContent = "";
     return true;
   }
 }
 
 export function validAdress(inputAdress) {
-  const regexAddress = /[\d{0,3}]+[a-zA-Z0-9\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]/;
+  const regexAddress =
+    /[\d{0,3}]+[a-zA-Z{3,6}+[a-zA-Z0-9\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]/;
 
   let testAdress = regexAddress.test(inputAdress.value);
   console.log(testAdress);
@@ -39,6 +42,7 @@ export function validAdress(inputAdress) {
   if (testAdress == false) {
     addressErrorMsg.textContent = "Veuillez renseigner une adresse valide";
   } else {
+    addressErrorMsg.textContent = "";
     return true;
   }
 }

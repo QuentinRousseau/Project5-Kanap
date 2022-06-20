@@ -4,7 +4,7 @@ import { validAdress, validEmail, validName } from "./formValidation.js";
 let getLocal = getCart();
 console.log(getLocal);
 
-//creation des balises html pour création d'une fiche produit
+// Setting of HTML blocs & contents
 function createProduct(product) {
   // postion of object
   const items = document.getElementById("cart__items");
@@ -84,7 +84,7 @@ function createProduct(product) {
   return product;
 }
 
-//affichage des fiches
+// Display of local Storage
 const localDisplay = async () => {
   for (let i in getLocal) {
     createProduct(i);
@@ -92,6 +92,9 @@ const localDisplay = async () => {
   }
 };
 (async () => await localDisplay())();
+
+// Total Price computation
+
 const qtyPriceTotal = () => {
   let totPrice = 0;
   let totQty = 0;
@@ -109,6 +112,8 @@ const qtyPriceTotal = () => {
   totPriceDisplay.textContent = totPrice;
 };
 qtyPriceTotal();
+
+// Change quantity of items and update total Price
 
 const inputList = document.querySelectorAll("article input");
 console.log(inputList);
@@ -136,6 +141,8 @@ inputList.forEach((input) => {
   });
 });
 
+// Delete function for item remove
+
 const deleteList = document.querySelectorAll(".deleteItem");
 console.log(deleteList);
 
@@ -161,6 +168,8 @@ deleteList.forEach((deleteItem) => {
     }
   });
 });
+
+// Form checking and push to localStorage
 let orderForm = document.querySelector(".cart__order__form");
 
 orderForm.firstName.addEventListener("change", function () {
@@ -174,10 +183,10 @@ orderForm.city.addEventListener("change", function () {
   validName(orderForm.city);
 });
 orderForm.address.addEventListener("change", function () {
-  validName(orderForm.address);
+  validAdress(orderForm.address);
 });
 orderForm.email.addEventListener("change", function () {
-  validName(orderForm.email);
+  validEmail(orderForm.email);
 });
 
 orderForm.addEventListener("submit", function (e) {
@@ -198,5 +207,9 @@ orderForm.addEventListener("submit", function (e) {
     };
     localStorage.setItem("Contact", JSON.stringify(checkOutForm));
     console.log(localStorage);
+    orderForm.clear();
+  } else {
+    alert("Veuillez renseignez des informations valable !");
+    e.clear();
   }
 });
