@@ -1,6 +1,12 @@
-import { addProduct, getCart, setCart } from "./cartManager.js";
-import { validAdress, validEmail, validName } from "./formValidation.js";
+import { getCart, setCart } from "./cartManager.js";
+import {
+  postToBack,
+  validAdress,
+  validEmail,
+  validName,
+} from "./formValidation.js";
 
+// Recover data of API
 let headersList = {
   Accept: "*/*",
 };
@@ -17,8 +23,10 @@ const fetchProduct = async () => {
     });
 };
 
+// Recover data of localStorage
 let getLocal = getCart();
 
+// Create object with data of localStorage and API result
 const canapeOnCart = async () => {
   let data = await fetchProduct();
   let cartList = [];
@@ -135,7 +143,6 @@ const localDisplay = async () => {
 };
 
 // Total Price computation
-
 const qtyPriceTotal = async () => {
   let cartList = await canapeOnCart();
   let totPrice = 0;
@@ -181,8 +188,8 @@ const modifQty = async () => {
     });
   });
 };
-// Delete function for item remove
 
+// Delete function for item remove
 const deleteItems = async () => {
   const deleteList = document.querySelectorAll(".deleteItem");
 
@@ -209,6 +216,7 @@ const deleteItems = async () => {
     });
   });
 };
+
 // Form checking and push to localStorage (functions in 'formValidation.js')
 const submitForm = async () => {
   let canapeList = await canapeOnCart();
@@ -251,31 +259,15 @@ const submitForm = async () => {
       };
 
       localStorage.setItem("Contact", JSON.stringify(checkOutForm));
-      console.log(localStorage);
-      console.log(checkOutForm);
-      console.log(typeof checkOutForm);
-      console.log(canapeList);
-      console.log(typeof canapeList);
-
-      let listToBack = Object.keys(canapeList).map(function (cle) {
-        return [Number(cle), canapeList[cle]];
-      });
-
-      let response = fetch("http://localhost:3000/api/products/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(checkOutForm, listToBack),
-      });
-      let result = response.json();
-      alert(result.message);
+      let myBody = getCart();
+      postToBack(myBody);
     } else {
       alert("Veuillez renseignez des informations valable !");
     }
   });
 };
 
+// main function
 (async () => {
   await localDisplay();
   await modifQty();

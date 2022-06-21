@@ -1,3 +1,6 @@
+import { getCart } from "./cartManager";
+
+// Check the email
 export function validEmail(inputEmail) {
   const regexEmail = new RegExp(
     "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
@@ -15,6 +18,7 @@ export function validEmail(inputEmail) {
   }
 }
 
+//Check the firstName, lastName & city
 export function validName(inputName) {
   const regexNameAndCity = /[a-zA-Z\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]{2,47}/;
 
@@ -30,6 +34,7 @@ export function validName(inputName) {
   }
 }
 
+// Check the address
 export function validAdress(inputAdress) {
   const regexAddress =
     /[\d{0,3}]+[a-zA-Z{3,6}+[a-zA-Z0-9\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]/;
@@ -43,5 +48,28 @@ export function validAdress(inputAdress) {
   } else {
     addressErrorMsg.textContent = "";
     return true;
+  }
+}
+
+// Post data to back
+export function postToBack() {
+  console.log(myBody);
+  try {
+    let response = fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(myBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    console.log(response);
+    const result = response.json();
+    return result;
+  } catch (err) {
+    console.log(err);
   }
 }
