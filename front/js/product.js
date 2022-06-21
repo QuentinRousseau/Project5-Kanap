@@ -58,16 +58,15 @@ const productDisplay = async () => {
 
 (async () => await productDisplay())();
 
-const product = await fetchProduct();
-
 // recupere les valeurs de l'input de la quantité et la couleur choisie
 
 function recoverData() {
   const color = document.getElementById("colors").value;
 
   const quantity = parseInt(document.getElementById("quantity").value, 10);
+
   // creer un boucle qui empeche l'ajout si l'input renvoie rien ou si il n'y a pas de couleur
-  return { ...product, id, color, quantity };
+  return { id, color, quantity };
 }
 
 // fonction d'ajout de canape au click du bouton
@@ -75,10 +74,7 @@ function recoverData() {
 const btn = document.getElementById("addToCart");
 btn.addEventListener("click", function () {
   const product = recoverData();
-  console.log(product.color);
-  console.log(product.quantity);
-  console.log(typeof product.color);
-  console.log(typeof product.quantity);
+
   if (
     product.color == "" ||
     product.quantity <= 0 ||

@@ -35,7 +35,6 @@ export function validAdress(inputAdress) {
     /[\d{0,3}]+[a-zA-Z{3,6}+[a-zA-Z0-9\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]/;
 
   let testAdress = regexAddress.test(inputAdress.value);
-  console.log(testAdress);
 
   let addressErrorMsg = document.getElementById("addressErrorMsg");
 
