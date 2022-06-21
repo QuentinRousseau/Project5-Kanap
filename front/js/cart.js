@@ -211,6 +211,7 @@ const deleteItems = async () => {
 };
 // Form checking and push to localStorage (functions in 'formValidation.js')
 const submitForm = async () => {
+  let canapeList = await canapeOnCart();
   let orderForm = document.querySelector(".cart__order__form");
 
   orderForm.firstName.addEventListener("change", function () {
@@ -248,8 +249,27 @@ const submitForm = async () => {
         city: orderForm.city.value,
         email: orderForm.email.value,
       };
+
       localStorage.setItem("Contact", JSON.stringify(checkOutForm));
       console.log(localStorage);
+      console.log(checkOutForm);
+      console.log(typeof checkOutForm);
+      console.log(canapeList);
+      console.log(typeof canapeList);
+
+      let listToBack = Object.keys(canapeList).map(function (cle) {
+        return [Number(cle), canapeList[cle]];
+      });
+
+      let response = fetch("http://localhost:3000/api/products/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(checkOutForm, listToBack),
+      });
+      let result = response.json();
+      alert(result.message);
     } else {
       alert("Veuillez renseignez des informations valable !");
     }
