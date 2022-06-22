@@ -1,13 +1,13 @@
 import { addProduct, getCart, setCart } from "./cartManager.js";
 
+//Recover the id in the URL
 const id = new URL(window.location.href).searchParams.get("id");
 console.log(id);
-//  Data recovery of API
 
+//  Data recovery of API
 let headersList = {
   Accept: "*/*",
 };
-
 const fetchProduct = async () => {
   return fetch(`http://localhost:3000/api/products/${id}`, {
     method: "GET",
@@ -22,6 +22,7 @@ const fetchProduct = async () => {
     });
 };
 
+// Create HTML content for Canape
 function createProduct(product) {
   //image
   const imgDiv = document.getElementsByClassName("item__img");
@@ -41,6 +42,7 @@ function createProduct(product) {
   createColor(product.colors);
 }
 
+// Create option of ColorList
 const createColor = async (colorList) => {
   const colorSelects = document.getElementById("colors");
   for (const name of colorList) {
@@ -51,6 +53,7 @@ const createColor = async (colorList) => {
   }
 };
 
+// Display of Canape
 const productDisplay = async () => {
   const product = await fetchProduct();
   createProduct(product);
@@ -58,8 +61,7 @@ const productDisplay = async () => {
 
 (async () => await productDisplay())();
 
-// recupere les valeurs de l'input de la quantité et la couleur choisie
-
+// Recovering of color and quantity chosen
 function recoverData() {
   const color = document.getElementById("colors").value;
 
@@ -69,8 +71,7 @@ function recoverData() {
   return { id, color, quantity };
 }
 
-// fonction d'ajout de canape au click du bouton
-
+// Check items before add to localStorage
 const btn = document.getElementById("addToCart");
 btn.addEventListener("click", function () {
   const product = recoverData();

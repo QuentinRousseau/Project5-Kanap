@@ -28,12 +28,12 @@ let getLocal = getCart();
 
 // Create object with data of localStorage and API result
 const canapeOnCart = async () => {
-  let data = await fetchProduct();
+  const data = await fetchProduct();
   let cartList = [];
-  let j = 0;
 
   for (let i in getLocal) {
-    while (data[j]._id != getLocal[i].id) {
+    let j = 0;
+    while (getLocal[i].id != data[j]._id) {
       j++;
     }
 
@@ -240,7 +240,6 @@ const submitForm = async () => {
   });
 
   // Push to local Storage (functions in 'formValidation.js')
-
   orderForm.addEventListener("submit", function (e) {
     e.preventDefault();
     if (
@@ -250,17 +249,19 @@ const submitForm = async () => {
       validName(orderForm.city) &&
       validEmail(orderForm.email)
     ) {
-      const checkOutForm = {
+      const contact = {
         firstName: orderForm.firstName.value,
         lastName: orderForm.lastName.value,
         address: orderForm.address.value,
         city: orderForm.city.value,
         email: orderForm.email.value,
       };
+      localStorage.setItem("Contact", JSON.stringify(contact));
 
-      localStorage.setItem("Contact", JSON.stringify(checkOutForm));
-      let myBody = getCart();
-      postToBack(myBody);
+      let products = canapeList.map((i) => i.id);
+      console.log(products);
+      console.log(contact);
+      postToBack(contact, products);
     } else {
       alert("Veuillez renseignez des informations valable !");
     }

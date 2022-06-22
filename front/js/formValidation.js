@@ -1,5 +1,3 @@
-import { getCart } from "./cartManager";
-
 // Check the email
 export function validEmail(inputEmail) {
   const regexEmail = new RegExp(
@@ -52,24 +50,25 @@ export function validAdress(inputAdress) {
 }
 
 // Post data to back
-export function postToBack() {
-  console.log(myBody);
-  try {
-    let response = fetch("http://localhost:3000/api/products/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(myBody),
+export function postToBack(contact, products) {
+  fetch("http://localhost:3000/api/products/order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ contact, products }),
+  })
+    .then(function (res) {
+      if (res.ok) {
+        console.log(res);
+        return res.json();
+      }
+    })
+    .then(function (data) {
+      document.location = "confirmation.html?orderId=" + data.orderId;
+      localStorage.clear();
+    })
+    .catch(function (err) {
+      console.log("erreur : " + err);
     });
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    console.log(response);
-    const result = response.json();
-    return result;
-  } catch (err) {
-    console.log(err);
-  }
 }
