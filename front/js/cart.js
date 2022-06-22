@@ -172,12 +172,7 @@ const modifQty = async () => {
       const canapId = canap.getAttribute("data-id");
       const canapeColor = canap.getAttribute("data-color");
 
-      console.log(canapId);
-      console.log(canapeColor);
-      console.log(input.value);
-
       for (let i of getLocal) {
-        console.log(getLocal);
         if (canapId == i.id && canapeColor == i.color) {
           console.log("on est rentré");
           i.quantity = parseInt(input.value);
@@ -195,19 +190,15 @@ const deleteItems = async () => {
 
   deleteList.forEach((deleteItem) => {
     deleteItem.addEventListener("click", function () {
-      // recuperer le data id du canape
-      const canap = deleteItem.closest("article"); // recupere le parent le plus proche de l'input
+      // Recover data of product
+      const canap = deleteItem.closest("article");
       const canapId = canap.getAttribute("data-id");
       const canapeColor = canap.getAttribute("data-color");
-
-      console.log(canapId);
-      console.log(canapeColor);
 
       for (let i in getLocal) {
         if (canapId == getLocal[i].id && canapeColor == getLocal[i].color) {
           console.log("on est rentré dans le delete");
           getLocal.splice(i, 1);
-          console.log(getLocal);
           setCart(getLocal);
           qtyPriceTotal();
           window.location.reload();
@@ -259,8 +250,6 @@ const submitForm = async () => {
       localStorage.setItem("Contact", JSON.stringify(contact));
 
       let products = canapeList.map((i) => i.id);
-      console.log(products);
-      console.log(contact);
       postToBack(contact, products);
     } else {
       alert("Veuillez renseignez des informations valable !");

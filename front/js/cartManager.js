@@ -2,7 +2,6 @@
 export function addProduct(product) {
   const canapeList = getCart();
   if (product.quantity == 0) return;
-  console.log(canapeList);
   let item = canapeList.find(
     (item) => item.id === product.id && item.color === product.color
   );

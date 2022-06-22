@@ -45,7 +45,6 @@ const canapeDisplay = async () => {
   const canapes = await fetchCanape();
   // Creating a sofa object for each array element
   for (let canape of canapes) {
-    console.log(canape);
     createCanape(canape);
   }
 };

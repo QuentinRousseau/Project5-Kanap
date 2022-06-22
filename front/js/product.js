@@ -2,7 +2,6 @@ import { addProduct, getCart, setCart } from "./cartManager.js";
 
 //Recover the id in the URL
 const id = new URL(window.location.href).searchParams.get("id");
-console.log(id);
 
 //  Data recovery of API
 let headersList = {
