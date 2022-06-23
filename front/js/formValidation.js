@@ -1,12 +1,10 @@
 // Check the email
+const regexEmail = /^[a-zA-Z0-9.-_]+@[a-z]+\.[a-z]{2,10}$/;
 export function validEmail(inputEmail) {
-  const regexEmail = new RegExp(
-    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
-    "g"
-  );
-
   let testEmail = regexEmail.test(inputEmail.value);
   let emailErrorMsg = document.getElementById("emailErrorMsg");
+
+  console.log(testEmail);
 
   if (testEmail == false) {
     emailErrorMsg.textContent = "Veuillez renseigner une adresse mail valide";
@@ -15,12 +13,22 @@ export function validEmail(inputEmail) {
     return true;
   }
 }
+/*
+jean-luis
+Paris
+anais.hannel@gmail.com
+rousseau.quentin91580@gmail.com
+rolland.nicolas9118@gmail.com
+123 av de la republique
+123 rue republique
+123 rue republique
+Paris
+*/
 
 //Check the firstName, lastName & city
+const regexNameAndCity = /^[a-zA-Z\-çîïâäôöéèà']{1,47}$/;
 export function validName(inputName) {
-  const regexNameAndCity = /[a-zA-Z\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]{2,47}/;
-
-  let testName = regexNameAndCity.test(inputName.value); // envoie un string "Quentin"
+  let testName = regexNameAndCity.test(inputName.value);
 
   let errorMsg = inputName.nextElementSibling;
 
@@ -32,11 +40,9 @@ export function validName(inputName) {
   }
 }
 
+const regexAddress = /^\d{0,3} [a-zA-Z]{2,6} [a-zA-Z0-9\-çîïâäôöéèà' ]+$/;
 // Check the address
 export function validAdress(inputAdress) {
-  const regexAddress =
-    /[\d{0,3}]+[a-zA-Z{3,6}+[a-zA-Z0-9\-\ç\î\ï\â\ä\ô\ö\é\è\à\'\ ]/;
-
   let testAdress = regexAddress.test(inputAdress.value);
 
   let addressErrorMsg = document.getElementById("addressErrorMsg");
@@ -50,25 +56,19 @@ export function validAdress(inputAdress) {
 }
 
 // Post data to back
-export function postToBack(contact, products) {
-  fetch("http://localhost:3000/api/products/order", {
+export async function postToBack(contact, products) {
+  const res = await fetch("http://localhost:3000/api/products/order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ contact, products }),
-  })
-    .then(function (res) {
-      if (res.ok) {
-        console.log(res);
-        return res.json();
-      }
-    })
-    .then(function (data) {
-      document.location = "confirmation.html?orderId=" + data.orderId;
-      localStorage.clear();
-    })
-    .catch(function (err) {
-      console.log("erreur : " + err);
-    });
+  });
+  if (!res.ok) throw new Error("La requete est invalide");
+
+  console.log(res);
+  const data = await res.json();
+
+  document.location = "confirmation.html?orderId=" + data.orderId;
+  localStorage.clear();
 }

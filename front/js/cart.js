@@ -234,26 +234,29 @@ const submitForm = async () => {
   orderForm.addEventListener("submit", function (e) {
     e.preventDefault();
     if (
-      validName(orderForm.firstName) &&
-      validName(orderForm.lastName) &&
-      validAdress(orderForm.address) &&
-      validName(orderForm.city) &&
-      validEmail(orderForm.email)
-    ) {
-      const contact = {
-        firstName: orderForm.firstName.value,
-        lastName: orderForm.lastName.value,
-        address: orderForm.address.value,
-        city: orderForm.city.value,
-        email: orderForm.email.value,
-      };
-      localStorage.setItem("Contact", JSON.stringify(contact));
+      !(
+        validName(orderForm.firstName) &&
+        validName(orderForm.lastName) &&
+        validAdress(orderForm.address) &&
+        validName(orderForm.city) &&
+        validEmail(orderForm.email)
+      )
+    )
+      return;
 
-      let products = canapeList.map((i) => i.id);
-      postToBack(contact, products);
-    } else {
-      alert("Veuillez renseignez des informations valable !");
-    }
+    const contact = {
+      firstName: orderForm.firstName.value,
+      lastName: orderForm.lastName.value,
+      address: orderForm.address.value,
+      city: orderForm.city.value,
+      email: orderForm.email.value,
+    };
+    console.group("request");
+    console.log(contact);
+    console.groupEnd();
+
+    let products = canapeList.map((i) => i.id);
+    postToBack(contact, products);
   });
 };
 

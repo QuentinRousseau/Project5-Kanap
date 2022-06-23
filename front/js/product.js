@@ -8,17 +8,13 @@ let headersList = {
   Accept: "*/*",
 };
 const fetchProduct = async () => {
-  return fetch(`http://localhost:3000/api/products/${id}`, {
+  const response = await fetch(`http://localhost:3000/api/products/${id}`, {
     method: "GET",
     headers: headersList,
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      return data;
-    });
+  });
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
 
 // Create HTML content for Canape
@@ -75,14 +71,12 @@ const btn = document.getElementById("addToCart");
 btn.addEventListener("click", function () {
   const product = recoverData();
 
-  if (
-    product.color == "" ||
-    product.quantity <= 0 ||
-    product.quantity == false
-  ) {
-    alert("Mettre une couleur et une quantité avant ajout au panier");
-  } else {
-    addProduct(product);
-    alert("Produit(s) ajouté(s)");
-  }
+  if (product.color == "")
+    return alert("Mettre une couleur valide avant ajout au panier");
+  if (!product.quantity > 0)
+    return alert("Mettre une quantité valide avant ajout au panier");
+
+  addProduct(product);
+
+  alert("Produit(s) ajouté(s)");
 });
