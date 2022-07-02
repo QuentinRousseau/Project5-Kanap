@@ -166,11 +166,17 @@ const modifQty = async () => {
   const inputList = document.querySelectorAll("article input");
 
   inputList.forEach((input) => {
-    input.addEventListener("change", function () {
+    input.addEventListener("change", function (event) {
+      console.log(event);
       // recuperer le data id du canape
       const canap = input.closest("article"); // recupere le parent le plus proche de l'input
       const canapId = canap.getAttribute("data-id");
       const canapeColor = canap.getAttribute("data-color");
+      let val = parseInt(input.value, 10) || 0;
+
+      if (val < 1) val = 1;
+      if (val > 100) val = 100;
+      input.value = val;
 
       for (let i of getLocal) {
         if (canapId == i.id && canapeColor == i.color) {
@@ -198,7 +204,6 @@ const deleteItems = async () => {
         if (canapId == getLocal[i].id && canapeColor == getLocal[i].color) {
           getLocal.splice(i, 1);
           setCart(getLocal);
-          qtyPriceTotal();
           console.log(getLocal);
           window.location.reload();
         }

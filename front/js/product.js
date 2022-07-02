@@ -59,7 +59,7 @@ const productDisplay = async () => {
 function recoverData() {
   const color = document.getElementById("colors").value;
 
-  const quantity = parseInt(document.getElementById("quantity").value, 10);
+  const quantity = parseInt(document.getElementById("quantity").value, 10) || 0;
 
   // creer un boucle qui empeche l'ajout si l'input renvoie rien ou si il n'y a pas de couleur
   return { id, color, quantity };
@@ -72,7 +72,7 @@ btn.addEventListener("click", function () {
 
   if (product.color == "")
     return alert("Mettre une couleur valide avant ajout au panier");
-  if (!product.quantity > 0)
+  if (product.quantity < 1 || product.quantity > 100)
     return alert("Mettre une quantité valide avant ajout au panier");
 
   addProduct(product);
