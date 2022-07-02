@@ -174,7 +174,6 @@ const modifQty = async () => {
 
       for (let i of getLocal) {
         if (canapId == i.id && canapeColor == i.color) {
-          console.log("on est rentré");
           i.quantity = parseInt(input.value);
           setCart(getLocal);
           qtyPriceTotal();
@@ -197,10 +196,10 @@ const deleteItems = async () => {
 
       for (let i in getLocal) {
         if (canapId == getLocal[i].id && canapeColor == getLocal[i].color) {
-          console.log("on est rentré dans le delete");
           getLocal.splice(i, 1);
           setCart(getLocal);
           qtyPriceTotal();
+          console.log(getLocal);
           window.location.reload();
         }
       }
@@ -251,9 +250,6 @@ const submitForm = async () => {
       city: orderForm.city.value,
       email: orderForm.email.value,
     };
-    console.group("request");
-    console.log(contact);
-    console.groupEnd();
 
     let products = canapeList.map((i) => i.id);
     postToBack(contact, products);

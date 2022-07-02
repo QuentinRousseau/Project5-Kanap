@@ -1,4 +1,4 @@
-import { addProduct, getCart, setCart } from "./cartManager.js";
+import { addProduct } from "./cartManager.js";
 
 //Recover the id in the URL
 const id = new URL(window.location.href).searchParams.get("id");
@@ -13,7 +13,6 @@ const fetchProduct = async () => {
     headers: headersList,
   });
   const data = await response.json();
-  console.log(data);
   return data;
 };
 

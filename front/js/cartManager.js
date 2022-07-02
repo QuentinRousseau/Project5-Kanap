@@ -10,6 +10,7 @@ export function addProduct(product) {
     canapeList.push(item);
   } else item.quantity += product.quantity;
   setCart(canapeList);
+  console.log(canapeList);
 }
 
 // Save the cart

@@ -4,8 +4,6 @@ export function validEmail(inputEmail) {
   let testEmail = regexEmail.test(inputEmail.value);
   let emailErrorMsg = document.getElementById("emailErrorMsg");
 
-  console.log(testEmail);
-
   if (testEmail == false) {
     emailErrorMsg.textContent = "Veuillez renseigner une adresse mail valide";
   } else {
@@ -13,17 +11,6 @@ export function validEmail(inputEmail) {
     return true;
   }
 }
-/*
-jean-luis
-Paris
-anais.hannel@gmail.com
-rousseau.quentin91580@gmail.com
-rolland.nicolas9118@gmail.com
-123 av de la republique
-123 rue republique
-123 rue republique
-Paris
-*/
 
 //Check the firstName, lastName & city
 const regexNameAndCity = /^[a-zA-Z\-çîïâäôöéèà']{1,47}$/;
